@@ -34,19 +34,8 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
       }
     });
 
-    // Listen for auth errors
-    const errorListener = supabase.auth.onError((error) => {
-      console.error('Auth error:', error);
-      toast({
-        title: "Error de autenticación",
-        description: error.message || "Credenciales inválidas. Por favor, intente nuevamente.",
-        variant: "destructive",
-      });
-    });
-
     return () => {
       subscription.unsubscribe();
-      errorListener.data.subscription.unsubscribe();
     };
   }, [onLogin, toast, navigate]);
 
