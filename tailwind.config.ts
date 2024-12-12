@@ -35,16 +35,26 @@ export default {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "#800020", // Burgundy
+          light: "#A6334C", // Lighter burgundy for hover states
+          dark: "#590017", // Darker burgundy for active states
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#8A898C",
+          DEFAULT: "#2A2A2A", // Dark gray for better contrast
           foreground: "#FFFFFF",
         },
         accent: {
           DEFAULT: "#800020", // Burgundy
           foreground: "#FFFFFF",
         },
+        muted: {
+          DEFAULT: "#F5F5F5", // Light gray background
+          foreground: "#2A2A2A", // Dark text on light background
+        },
+        glass: {
+          DEFAULT: "rgba(255, 255, 255, 0.9)",
+          dark: "rgba(42, 42, 42, 0.9)",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

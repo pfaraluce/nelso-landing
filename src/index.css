@@ -5,10 +5,10 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --foreground: 0 0% 16%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 10%;
     --radius: 0.75rem;
   }
 
@@ -23,7 +23,11 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/80 backdrop-blur-md border border-white/20;
+    @apply bg-glass backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  
+  .glass-dark {
+    @apply bg-glass-dark backdrop-blur-md border border-black/20 shadow-lg;
   }
   
   .section-padding {
