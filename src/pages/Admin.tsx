@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AdminLogin from "@/components/AdminLogin";
 import BlogEditor from "@/components/BlogEditor";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,6 +9,7 @@ const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { slug } = useParams();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -45,7 +46,9 @@ const Admin = () => {
     <div className="min-h-screen bg-muted">
       <div className="container mx-auto py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Panel de Administración</h1>
+          <h1 className="text-3xl font-bold">
+            {slug ? 'Editar Artículo' : 'Nuevo Artículo'}
+          </h1>
           <button
             onClick={handleLogout}
             className="text-red-600 hover:text-red-800"
