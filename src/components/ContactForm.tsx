@@ -6,6 +6,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -15,6 +18,8 @@ const formSchema = z.object({
 });
 
 const ContactForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,12 +31,40 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast({
-      title: "Formulario enviado",
-      description: "Nos pondremos en contacto contigo lo antes posible",
-    });
-    form.reset();
+    try {
+      setIsSubmitting(true);
+      console.log("Submitting form:", values);
+
+      // Save to database
+      const { error: dbError } = await supabase
+        .from('contact_forms')
+        .insert(values);
+
+      if (dbError) throw dbError;
+
+      // Send confirmation email
+      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
+        body: values
+      });
+
+      if (emailError) throw emailError;
+
+      toast({
+        title: "Formulario enviado",
+        description: "Nos pondremos en contacto contigo lo antes posible",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -93,7 +126,20 @@ const ContactForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">Enviar mensaje</Button>
+              <Button 
+                type="submit" 
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  'Enviar mensaje'
+                )}
+              </Button>
             </form>
           </Form>
         </div>
