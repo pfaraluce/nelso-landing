@@ -35,7 +35,7 @@ const Navbar = () => {
           </Button>
           <Button 
             variant="outline" 
-            className="text-white border-2 border-white hover:bg-white hover:text-black font-medium"
+            className="text-white border-2 border-white hover:bg-white hover:text-primary"
             onClick={() => window.open('https://aula.nelsoformacion.es', '_blank')}
           >
             <ExternalLink className="w-4 h-4 mr-2" />
