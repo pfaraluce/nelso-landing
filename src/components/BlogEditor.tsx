@@ -3,13 +3,15 @@ import StarterKit from '@tiptap/starter-kit';
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 const BlogEditor = () => {
+  const { slug } = useParams();
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -22,6 +24,31 @@ const BlogEditor = () => {
     extensions: [StarterKit],
     content: '<p>Comienza a escribir tu artículo aquí...</p>',
   });
+
+  const { data: post, isLoading } = useQuery({
+    queryKey: ['post', slug],
+    queryFn: async () => {
+      if (!slug) return null;
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!slug,
+  });
+
+  useEffect(() => {
+    if (post && editor) {
+      setTitle(post.title);
+      setExcerpt(post.excerpt || '');
+      setCoverImagePreview(post.cover_image || '');
+      editor.commands.setContent(post.content);
+    }
+  }, [post, editor]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,7 +92,7 @@ const BlogEditor = () => {
         throw new Error("No user found");
       }
 
-      let coverImageUrl = null;
+      let coverImageUrl = post?.cover_image || null;
       if (coverImage) {
         const fileExt = coverImage.name.split('.').pop();
         const fileName = `${crypto.randomUUID()}.${fileExt}`;
@@ -82,23 +109,43 @@ const BlogEditor = () => {
         coverImageUrl = publicUrl;
       }
 
-      const slug = generateSlug(title);
-      
-      const { error } = await supabase.from('posts').insert({
+      const newSlug = generateSlug(title);
+      const postData = {
         title,
-        slug,
+        slug: newSlug,
         excerpt,
         content: editor.getHTML(),
         cover_image: coverImageUrl,
         author_id: user.id,
-      });
+        updated_at: new Date().toISOString(),
+      };
 
-      if (error) throw error;
+      if (post) {
+        // Update existing post
+        const { error } = await supabase
+          .from('posts')
+          .update(postData)
+          .eq('id', post.id);
 
-      toast({
-        title: "Éxito",
-        description: "Artículo guardado correctamente",
-      });
+        if (error) throw error;
+
+        toast({
+          title: "Éxito",
+          description: "Artículo actualizado correctamente",
+        });
+      } else {
+        // Create new post
+        const { error } = await supabase
+          .from('posts')
+          .insert(postData);
+
+        if (error) throw error;
+
+        toast({
+          title: "Éxito",
+          description: "Artículo guardado correctamente",
+        });
+      }
 
       navigate('/blog');
     } catch (error) {
@@ -112,6 +159,12 @@ const BlogEditor = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center h-96">
+      <Loader2 className="h-8 w-8 animate-spin" />
+    </div>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
@@ -175,10 +228,10 @@ const BlogEditor = () => {
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Guardando...
+              {post ? 'Actualizando...' : 'Guardando...'}
             </>
           ) : (
-            'Guardar Artículo'
+            post ? 'Actualizar Artículo' : 'Guardar Artículo'
           )}
         </Button>
       </div>

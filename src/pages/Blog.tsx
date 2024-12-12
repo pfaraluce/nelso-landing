@@ -4,17 +4,22 @@ import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const Blog = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "Cómo prepararse para las pruebas FEAST",
-      description: "Guía completa para superar con éxito las pruebas de selección de controladores aéreos",
-      date: "2024-03-15",
-      slug: "como-prepararse-pruebas-feast"
-    }
-  ];
+  const { data: posts, isLoading } = useQuery({
+    queryKey: ['posts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
 
   return (
     <div className="min-h-screen bg-muted">
@@ -23,22 +28,37 @@ const Blog = () => {
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-12">Blog</h1>
           <div className="grid gap-6">
-            {posts.map((post) => (
-              <Card key={post.id} className="hover-lift">
-                <CardHeader>
-                  <CardTitle>{post.title}</CardTitle>
-                  <CardDescription>{new Date(post.date).toLocaleDateString()}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="mb-4">{post.description}</p>
-                  <Button asChild>
-                    <Link to={`/blog/${post.slug}`}>
-                      Leer más <ChevronRight className="ml-2" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+            {isLoading ? (
+              <p>Cargando artículos...</p>
+            ) : posts && posts.length > 0 ? (
+              posts.map((post) => (
+                <Card key={post.id} className="hover-lift">
+                  <CardHeader>
+                    {post.cover_image && (
+                      <img 
+                        src={post.cover_image} 
+                        alt={post.title}
+                        className="w-full h-48 object-cover rounded-t-lg mb-4"
+                      />
+                    )}
+                    <CardTitle>{post.title}</CardTitle>
+                    <CardDescription>
+                      {new Date(post.created_at).toLocaleDateString()}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="mb-4">{post.excerpt}</p>
+                    <Button asChild>
+                      <Link to={`/blog/${post.slug}`}>
+                        Leer más <ChevronRight className="ml-2" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <p>No hay artículos publicados todavía.</p>
+            )}
           </div>
         </div>
       </div>
