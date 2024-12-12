@@ -71,7 +71,7 @@ const BlogEditor = () => {
         coverImageUrl = await uploadCoverImage(coverImage, supabase);
       }
 
-      const newSlug = generateSlug(title);
+      const newSlug = post ? post.slug : generateSlug(title);
       const postData = {
         title,
         slug: newSlug,

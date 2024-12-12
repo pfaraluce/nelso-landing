@@ -36,7 +36,7 @@ const Blog = () => {
         <>
           {/* Featured Post */}
           {featuredPost && (
-            <div className="relative h-[70vh] w-full">
+            <div className="relative h-[70vh] w-full mt-16">
               <div 
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ 
