@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, Send, Calendar, Book, Users, BookOpen, ExternalLink } from "lucide-react";
+import { ChevronDown, Send, Calendar, Book, Users, BookOpen, ExternalLink, GraduationCap, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,65 +27,80 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Navbar */}
+      <div className="absolute top-0 left-0 w-full p-6 z-20">
+        <nav className="container mx-auto flex justify-between items-center">
+          <h1 className="text-white text-2xl font-bold">Nelso Formación</h1>
+          <div className="flex items-center gap-6">
+            <Button 
+              variant="ghost" 
+              className="text-white hover:text-white/80"
+              onClick={() => scrollToSection('caracteristicas')}
+            >
+              Características
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="text-white hover:text-white/80"
+              onClick={() => scrollToSection('apply')}
+            >
+              Solicitar Info
+            </Button>
+            <Button 
+              variant="ghost"
+              className="text-white hover:text-white/80"
+              onClick={() => window.location.href = '/blog'}
+            >
+              <BookOpen className="w-4 h-4 mr-2" />
+              Blog
+            </Button>
+            <Button 
+              variant="outline" 
+              className="text-white border-white hover:bg-white hover:text-black"
+              onClick={() => window.open('https://aula.nelsoformacion.es', '_blank')}
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Aula Virtual
+            </Button>
+          </div>
+        </nav>
+      </div>
+
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center parallax" 
                style={{ backgroundImage: "url('/lovable-uploads/f7c8d160-04c6-4ef8-a88d-4f5dfd77f8f4.png')" }}>
         <div className="absolute inset-0 bg-black/40" />
         
-        {/* Navigation Bar */}
-        <div className="absolute top-0 left-0 w-full p-6 z-20">
-          <nav className="container mx-auto flex justify-between items-center">
-            <h1 className="text-white text-2xl font-bold">Nelso Formación</h1>
-            <div className="flex items-center gap-6">
-              <Button 
-                variant="ghost" 
-                className="text-white hover:text-white/80"
-                onClick={() => scrollToSection('caracteristicas')}
-              >
-                Características
-              </Button>
-              <Button 
-                variant="ghost" 
-                className="text-white hover:text-white/80"
-                onClick={() => scrollToSection('apply')}
-              >
-                Solicitar Info
-              </Button>
-              <Button 
-                variant="ghost"
-                className="text-white hover:text-white/80"
-                onClick={() => window.location.href = '/blog'}
-              >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Blog
-              </Button>
-              <Button 
-                variant="outline" 
-                className="text-white border-white hover:bg-white hover:text-black"
-                onClick={() => window.open('https://aula.nelsoformacion.es', '_blank')}
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Aula Virtual
-              </Button>
-            </div>
-          </nav>
-        </div>
-
-        <div className="relative z-10 text-center text-white">
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">Formación Elite ATC</h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-              Transforma tu carrera en la aviación con formación profesional de control de tráfico aéreo
-            </p>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <GraduationCap className="w-12 h-12" />
+              <Trophy className="w-12 h-12" />
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              La Academia Líder en Formación de Controladores Aéreos
+            </h1>
+            
+            <div className="space-y-6">
+              <p className="text-xl md:text-2xl font-medium">
+                ¡16 nuevas plazas conseguidas en ENAIRE 2023!
+              </p>
+              <p className="text-lg md:text-xl">
+                1 de cada 5 plazas Top es de un Alumno Nelso
+              </p>
+            </div>
+
             <Button 
-              className="glass hover-lift text-lg px-8 py-6"
+              className="glass hover-lift text-lg px-8 py-6 bg-primary hover:bg-primary/90"
               onClick={() => scrollToSection('apply')}
             >
-              Comienza Tu Carrera
+              Solicita tu Plaza
             </Button>
           </motion.div>
         </div>
