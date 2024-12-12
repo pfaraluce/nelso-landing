@@ -27,14 +27,18 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
         console.log('User signed out');
         localStorage.removeItem("isAdmin");
         navigate('/');
+        toast({
+          title: "Sesión cerrada",
+          description: "Has cerrado sesión correctamente",
+        });
       }
 
       if (event === 'USER_UPDATED') {
         console.log('User updated:', session?.user);
       }
 
-      // Handle authentication errors
-      if (event === 'USER_DELETED' || event === 'SIGNED_OUT') {
+      // Handle authentication errors with correct event types
+      if (event === 'PASSWORD_RECOVERY' || event === 'TOKEN_REFRESHED') {
         toast({
           title: "Error de autenticación",
           description: "Por favor, verifique sus credenciales e intente nuevamente",
