@@ -9,8 +9,8 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center parallax" 
-             style={{ backgroundImage: "url('/lovable-uploads/f7c8d160-04c6-4ef8-a88d-4f5dfd77f8f4.png')" }}>
-      <div className="absolute inset-0 bg-black/40" />
+             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&q=80')" }}>
+      <div className="absolute inset-0 bg-black/60" />
       
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
         <motion.div

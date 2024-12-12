@@ -1,32 +1,40 @@
 import { motion } from "framer-motion";
+import { Brain, Focus, Users, Shield } from "lucide-react";
 
 const Profile = () => {
   const skills = [
     {
       name: "Agilidad mental",
       description: "Capacidad para resolver tesituras y tomar decisiones en un corto espacio de tiempo.",
-      percentage: 100
+      icon: Brain
     },
     {
       name: "Atención concentrada",
       description: "Poseer la habilidad de atender varios temas a la vez, escribir, hablar y pensar en diferentes situaciones de forma simultanea.",
-      percentage: 100
+      icon: Focus
     },
     {
       name: "Trabajo en equipo",
       description: "Une los esfuerzos de todos los miembros del equipo, potenciando y aumentando la eficacia de los resultados.",
-      percentage: 100
+      icon: Users
     },
     {
       name: "Estabilidad emocional",
       description: "Control sobre las emociones propias y resistencia ante los problemas del día a día.",
-      percentage: 100
+      icon: Shield
     }
   ];
 
   return (
-    <section id="perfil" className="section-padding bg-white">
-      <div className="container mx-auto">
+    <section id="perfil" className="section-padding bg-white relative overflow-hidden">
+      {/* Radar background effect */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 border-2 border-primary rounded-full animate-ping" style={{ animation: 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite' }}></div>
+        <div className="absolute inset-[10%] border-2 border-primary rounded-full animate-ping" style={{ animation: 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite 1s' }}></div>
+        <div className="absolute inset-[20%] border-2 border-primary rounded-full animate-ping" style={{ animation: 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite 2s' }}></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,7 +43,7 @@ const Profile = () => {
         >
           <h2 className="text-4xl font-bold text-center mb-12">Perfil de un Controlador Aéreo</h2>
           
-          <div className="grid gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {skills.map((skill, index) => (
               <motion.div
                 key={index}
@@ -44,14 +52,9 @@ const Profile = () => {
                 transition={{ delay: index * 0.2 }}
                 className="glass p-6 rounded-xl"
               >
+                <skill.icon className="w-12 h-12 text-primary mb-4" />
                 <h3 className="text-xl font-bold mb-2">{skill.name}</h3>
-                <p className="mb-4">{skill.description}</p>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div 
-                    className="bg-primary h-2.5 rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.percentage}%` }}
-                  />
-                </div>
+                <p className="text-gray-600">{skill.description}</p>
               </motion.div>
             ))}
           </div>
