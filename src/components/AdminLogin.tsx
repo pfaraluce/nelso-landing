@@ -32,19 +32,6 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
           description: "Has cerrado sesión correctamente",
         });
       }
-
-      if (event === 'USER_UPDATED') {
-        console.log('User updated:', session?.user);
-      }
-
-      // Handle authentication errors with correct event types
-      if (event === 'PASSWORD_RECOVERY' || event === 'TOKEN_REFRESHED') {
-        toast({
-          title: "Error de autenticación",
-          description: "Por favor, verifique sus credenciales e intente nuevamente",
-          variant: "destructive",
-        });
-      }
     });
 
     return () => {
