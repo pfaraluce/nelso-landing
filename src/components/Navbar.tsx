@@ -1,4 +1,4 @@
-import { ExternalLink, BookOpen } from "lucide-react";
+import { ExternalLink, BookOpen, TowerControl } from "lucide-react";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
@@ -9,7 +9,10 @@ const Navbar = () => {
   return (
     <div className="absolute top-0 left-0 w-full p-6 z-20">
       <nav className="container mx-auto flex justify-between items-center">
-        <h1 className="text-white text-2xl font-bold">Nelso Formación</h1>
+        <h1 className="text-white text-2xl font-bold flex items-center gap-2">
+          <TowerControl className="w-8 h-8" />
+          Nelso Formación
+        </h1>
         <div className="flex items-center gap-6">
           <Button 
             variant="ghost" 
@@ -35,7 +38,7 @@ const Navbar = () => {
           </Button>
           <Button 
             variant="outline" 
-            className="text-white border-2 border-white hover:bg-white hover:text-primary transition-colors"
+            className="text-primary bg-white border-2 border-white hover:bg-white hover:text-primary transition-colors"
             onClick={() => window.open('https://aula.nelsoformacion.es', '_blank')}
           >
             <ExternalLink className="w-4 h-4 mr-2" />
