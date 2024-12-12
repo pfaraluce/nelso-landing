@@ -36,7 +36,11 @@ const BlogEditor = () => {
         .eq('slug', slug)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching post:', error);
+        throw error;
+      }
+      console.log('Fetched post:', data);
       return data;
     },
     enabled: !!slug,
@@ -44,6 +48,7 @@ const BlogEditor = () => {
 
   useEffect(() => {
     if (post && editor) {
+      console.log('Setting editor content:', post);
       setTitle(post.title);
       setExcerpt(post.excerpt || '');
       editor.commands.setContent(post.content);
@@ -61,6 +66,7 @@ const BlogEditor = () => {
     }
 
     setIsSubmitting(true);
+    console.log('Starting save process...');
 
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -82,6 +88,8 @@ const BlogEditor = () => {
         updated_at: new Date().toISOString(),
       };
 
+      console.log('Saving post with data:', postData);
+
       if (post) {
         const { error } = await supabase
           .from('posts')
@@ -89,6 +97,7 @@ const BlogEditor = () => {
           .eq('id', post.id);
 
         if (error) throw error;
+        console.log('Post updated successfully');
         toast({
           title: "Éxito",
           description: "Artículo actualizado correctamente",
@@ -99,6 +108,7 @@ const BlogEditor = () => {
           .insert(postData);
 
         if (error) throw error;
+        console.log('New post created successfully');
         toast({
           title: "Éxito",
           description: "Artículo guardado correctamente",
