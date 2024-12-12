@@ -34,7 +34,20 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
       }
     });
 
-    return () => subscription.unsubscribe();
+    // Listen for auth errors
+    const errorListener = supabase.auth.onError((error) => {
+      console.error('Auth error:', error);
+      toast({
+        title: "Error de autenticación",
+        description: error.message || "Credenciales inválidas. Por favor, intente nuevamente.",
+        variant: "destructive",
+      });
+    });
+
+    return () => {
+      subscription.unsubscribe();
+      errorListener.data.subscription.unsubscribe();
+    };
   }, [onLogin, toast, navigate]);
 
   return (
@@ -56,14 +69,6 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
           }}
           providers={[]}
           theme="light"
-          onError={(error) => {
-            console.error('Auth error:', error);
-            toast({
-              title: "Error de autenticación",
-              description: "Credenciales inválidas. Por favor, intente nuevamente.",
-              variant: "destructive",
-            });
-          }}
         />
       </div>
     </div>
