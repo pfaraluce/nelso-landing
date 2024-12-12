@@ -30,6 +30,7 @@ const BlogEditor = () => {
     queryKey: ['post', slug],
     queryFn: async () => {
       if (!slug) return null;
+      console.log('Fetching post with slug:', slug);
       const { data, error } = await supabase
         .from('posts')
         .select('*')
@@ -77,10 +78,9 @@ const BlogEditor = () => {
         coverImageUrl = await uploadCoverImage(coverImage, supabase);
       }
 
-      const newSlug = post ? post.slug : generateSlug(title);
       const postData = {
         title,
-        slug: newSlug,
+        slug: post ? post.slug : generateSlug(title),
         excerpt,
         content: editor.getHTML(),
         cover_image: coverImageUrl,
@@ -91,12 +91,16 @@ const BlogEditor = () => {
       console.log('Saving post with data:', postData);
 
       if (post) {
+        console.log('Updating existing post with ID:', post.id);
         const { error } = await supabase
           .from('posts')
           .update(postData)
           .eq('id', post.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error updating post:', error);
+          throw error;
+        }
         console.log('Post updated successfully');
         toast({
           title: "Éxito",
@@ -107,7 +111,10 @@ const BlogEditor = () => {
           .from('posts')
           .insert(postData);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error creating post:', error);
+          throw error;
+        }
         console.log('New post created successfully');
         toast({
           title: "Éxito",
