@@ -32,6 +32,15 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
       if (event === 'USER_UPDATED') {
         console.log('User updated:', session?.user);
       }
+
+      // Handle authentication errors
+      if (event === 'USER_DELETED' || event === 'SIGNED_OUT') {
+        toast({
+          title: "Error de autenticación",
+          description: "Por favor, verifique sus credenciales e intente nuevamente",
+          variant: "destructive",
+        });
+      }
     });
 
     return () => {
