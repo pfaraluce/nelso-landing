@@ -7,7 +7,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center mt-16 md:mt-0">
+    <div className="relative min-h-screen flex items-center justify-center mt-24 md:mt-0">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{
@@ -23,18 +23,21 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto space-y-6"
         >
-          <span className="inline-block bg-primary px-4 py-2 rounded-full text-white font-semibold mb-4">
+          <span className="inline-block bg-primary px-4 py-2 rounded-full text-white font-semibold">
             ¡Nueva Convocatoria ENAIRE 2024!
           </span>
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+          
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
             150 Plazas para Controladores Aéreos
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
+          
+          <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto">
             ¡El doble de oportunidades que el año pasado! Prepárate con los expertos para la nueva convocatoria que incluye prueba de inglés C1 y simulación ATC.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto max-w-lg">
             <Button
               onClick={scrollToContact}
               size="lg"
@@ -52,7 +55,7 @@ const Hero = () => {
             </Button>
           </div>
           
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4 mt-12">
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
               <h3 className="font-bold text-xl mb-2">Prueba de Inglés C1</h3>
               <p>Nueva prueba específica en la Fase 1</p>
