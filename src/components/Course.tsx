@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Plane, Book } from "lucide-react";
+import { Plane, Book, Brain, Database } from "lucide-react";
 import { Button } from "./ui/button";
 
 const Course = () => {
@@ -41,15 +41,15 @@ const Course = () => {
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="glass p-6 rounded-xl">
-                <Plane className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-xl font-bold mb-2">Formación Completa</h3>
-                <p>Preparación integral para todas las fases del proceso</p>
+                <Database className="w-8 h-8 text-primary mb-4" />
+                <h3 className="text-xl font-bold mb-2">Banco de Preguntas</h3>
+                <p>Acceso a un extenso banco de preguntas teóricas y prácticas para dominar todos los aspectos del examen</p>
               </div>
               
               <div className="glass p-6 rounded-xl">
-                <Book className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-xl font-bold mb-2">Modalidades Flexibles</h3>
-                <p>Cursos online y presenciales adaptados a ti</p>
+                <Brain className="w-8 h-8 text-primary mb-4" />
+                <h3 className="text-xl font-bold mb-2">Preparación Integral</h3>
+                <p>Teoría, FEAST, inglés y pruebas psicológicas con expertos en cada área</p>
               </div>
             </div>
 
