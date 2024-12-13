@@ -18,12 +18,12 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center text-white">
+      <div className="relative z-10 container mx-auto text-center text-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto space-y-6"
+          className="max-w-4xl mx-auto space-y-6 px-4"
         >
           <span className="inline-block bg-primary px-4 py-2 rounded-full text-white font-semibold">
             ¡Nueva Convocatoria ENAIRE 2024!
@@ -34,12 +34,12 @@ const Hero = () => {
             <span className="hidden md:block">150 Plazas para Controladores Aéreos</span>
           </h1>
           
-          <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-2xl mx-auto">
             <span className="block md:hidden">¡Prepárate con los expertos! Incluye prueba de inglés C1 y simulación ATC.</span>
             <span className="hidden md:block">¡El doble de oportunidades que el año pasado! Prepárate con los expertos para la nueva convocatoria que incluye prueba de inglés C1 y simulación ATC.</span>
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full px-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               onClick={scrollToContact}
               size="lg"
@@ -57,7 +57,7 @@ const Hero = () => {
             </Button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
               <h3 className="font-bold text-xl mb-2">Prueba de Inglés C1</h3>
               <p>Nueva prueba específica en la Fase 1</p>
