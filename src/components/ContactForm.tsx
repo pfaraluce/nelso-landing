@@ -2,19 +2,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "./ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { toast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  firstName: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  lastName: z.string().min(2, "Los apellidos deben tener al menos 2 caracteres"),
   email: z.string().email("Email inválido"),
   phone: z.string().min(9, "El teléfono debe tener al menos 9 dígitos"),
-  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+  englishLevel: z.enum(["B1", "B2", "C1", "C2"], {
+    required_error: "Por favor, selecciona tu nivel de inglés",
+  }),
+  educationLevel: z.enum(["ESO", "Bachillerato", "Diplomatura", "Licenciatura"], {
+    required_error: "Por favor, selecciona tu nivel de estudios",
+  }),
+  comments: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -25,10 +33,11 @@ const ContactForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
       phone: "",
-      message: "",
+      comments: "",
     },
   });
 
@@ -41,10 +50,10 @@ const ContactForm = () => {
       const { error: dbError } = await supabase
         .from('contact_forms')
         .insert({
-          name: values.name,
+          name: `${values.firstName} ${values.lastName}`,
           email: values.email,
           phone: values.phone,
-          message: values.message,
+          message: `Nivel de inglés: ${values.englishLevel}\nNivel de estudios: ${values.educationLevel}\nComentarios: ${values.comments || 'No hay comentarios'}`,
         });
 
       if (dbError) throw dbError;
@@ -57,8 +66,9 @@ const ContactForm = () => {
       if (emailError) throw emailError;
 
       toast({
-        title: "Formulario enviado",
-        description: "Nos pondremos en contacto contigo lo antes posible",
+        title: "¡Formulario enviado con éxito! 🎉",
+        description: "Nos pondremos en contacto contigo muy pronto.",
+        className: "bg-primary text-primary-foreground",
       });
       
       form.reset();
@@ -83,12 +93,23 @@ const ContactForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="name"
+                name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Tu nombre" {...field} />
+                      <Input placeholder="Nombre" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Apellidos" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,9 +120,8 @@ const ContactForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="tu@email.com" type="email" {...field} />
+                      <Input placeholder="Email" type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,9 +132,8 @@ const ContactForm = () => {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Teléfono</FormLabel>
                     <FormControl>
-                      <Input placeholder="Tu teléfono" type="tel" {...field} />
+                      <Input placeholder="Teléfono" type="tel" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -122,12 +141,55 @@ const ContactForm = () => {
               />
               <FormField
                 control={form.control}
-                name="message"
+                name="englishLevel"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Mensaje</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Nivel de inglés" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="B1">B1</SelectItem>
+                        <SelectItem value="B2">B2</SelectItem>
+                        <SelectItem value="C1">C1</SelectItem>
+                        <SelectItem value="C2">C2</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="educationLevel"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Nivel de estudios" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="ESO">ESO</SelectItem>
+                        <SelectItem value="Bachillerato">Bachillerato</SelectItem>
+                        <SelectItem value="Diplomatura">Diplomatura</SelectItem>
+                        <SelectItem value="Licenciatura">Licenciatura</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="comments"
+                render={({ field }) => (
+                  <FormItem>
                     <FormControl>
-                      <Textarea placeholder="Tu mensaje" {...field} />
+                      <Textarea placeholder="Comentarios (opcional)" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
