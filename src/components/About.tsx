@@ -41,7 +41,8 @@ const About = () => {
             onClick={scrollToContact}
             className="bg-primary hover:bg-primary-light text-white px-8 py-6 text-lg"
           >
-            ¡Quiero prepararme con los mejores!
+            <span className="block md:hidden">¡Solicita información!</span>
+            <span className="hidden md:block">¡Quiero prepararme con los mejores!</span>
           </Button>
         </motion.div>
       </div>
