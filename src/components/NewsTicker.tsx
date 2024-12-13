@@ -4,7 +4,7 @@ import { AlertCircle } from "lucide-react";
 const NewsTicker = () => {
   const messages = [
     "¡Nueva convocatoria! 150 plazas ENAIRE 2024",
-    "Salarios desde 48.000€ hasta 150.000€ anuales",
+    "Formación online y presencial disponible",
     "16 aprobados en la última convocatoria",
     "Preparación integral: FEAST + Inglés C1 + Pruebas psicológicas"
   ];
