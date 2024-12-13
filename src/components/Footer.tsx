@@ -1,41 +1,17 @@
-import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { Button } from "./ui/button";
+import { TowerControl } from "lucide-react";
 
 const Footer = () => {
-  const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com/nelsoformacion" },
-    { icon: Instagram, href: "https://instagram.com/nelsoformacion" },
-    { icon: Linkedin, href: "https://linkedin.com/company/nelsoformacion" },
-  ];
-
   return (
     <footer className="bg-secondary text-white py-12">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">Nelso Formación</h3>
-            <p className="text-gray-300">
-              La academia líder en formación de controladores aéreos
-            </p>
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex items-center space-x-2 text-xl font-bold mb-4">
+            <TowerControl className="h-6 w-6" />
+            <span>Nelso Formación</span>
           </div>
-          <div>
-            <h3 className="text-xl font-bold mb-4">Síguenos</h3>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <Button
-                  key={index}
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-300 hover:text-white"
-                  asChild
-                >
-                  <a href={social.href} target="_blank" rel="noopener noreferrer">
-                    <social.icon className="h-5 w-5" />
-                  </a>
-                </Button>
-              ))}
-            </div>
-          </div>
+          <p className="text-gray-300 text-center">
+            La academia líder en formación de controladores aéreos
+          </p>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-300">
           <p>&copy; {new Date().getFullYear()} Nelso Formación. Todos los derechos reservados.</p>
