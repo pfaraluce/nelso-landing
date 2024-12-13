@@ -45,7 +45,8 @@ const Hero = () => {
               size="lg"
               className="w-full sm:w-auto bg-primary hover:bg-primary-light text-white px-8 py-6 text-lg"
             >
-              ¡Quiero prepararme con los mejores!
+              <span className="block md:hidden">¡Reserva tu plaza!</span>
+              <span className="hidden md:block">¡Reserva tu plaza ahora!</span>
             </Button>
             <Button
               onClick={() => document.getElementById('curso')?.scrollIntoView({ behavior: 'smooth' })}
