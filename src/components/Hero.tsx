@@ -33,7 +33,7 @@ const Hero = () => {
         style={{
           backgroundImage: "url('/lovable-uploads/b84d5575-b9a7-4007-b07f-aec3b751951e.webp')",
           willChange: 'transform',
-          transform: 'translateZ(0)', // Fuerza la aceleración por hardware
+          transform: 'translateZ(0)',
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
@@ -46,34 +46,31 @@ const Hero = () => {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto space-y-6 px-4"
         >
-          <span className="inline-block bg-primary px-4 py-2 rounded-full text-white font-semibold">
+          <span className="inline-block bg-primary px-3 py-1.5 rounded-full text-white text-sm font-medium">
             ¡Nueva Convocatoria ENAIRE 2024!
           </span>
           
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
-            <span className="block md:hidden">150 Plazas Controlador Aéreo</span>
-            <span className="hidden md:block">150 Plazas para Controladores Aéreos</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            150 Plazas Controlador Aéreo
           </h1>
           
-          <p className="text-lg md:text-xl lg:text-2xl mx-auto">
-            <span className="block md:hidden">¡Prepárate con los expertos! Incluye prueba de inglés C1 y simulación ATC.</span>
-            <span className="hidden md:block">¡El doble de oportunidades que el año pasado! Prepárate con los expertos para la nueva convocatoria que incluye prueba de inglés C1 y simulación ATC.</span>
+          <p className="text-base md:text-xl lg:text-2xl max-w-2xl mx-auto opacity-90">
+            ¡Prepárate con los expertos! Incluye prueba de inglés C1 y simulación ATC.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Button
               onClick={scrollToContact}
               size="lg"
-              className="w-full sm:w-auto bg-primary hover:bg-primary-light text-white px-8 py-6 text-lg"
+              className="w-full sm:w-auto bg-primary hover:bg-primary-light text-white px-6 py-6 text-lg"
             >
-              <span className="block md:hidden">¡Reserva tu plaza!</span>
-              <span className="hidden md:block">¡Reserva tu plaza ahora!</span>
+              ¡Reserva tu plaza!
             </Button>
             <Button
               onClick={() => document.getElementById('curso')?.scrollIntoView({ behavior: 'smooth' })}
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white px-8 py-6 text-lg"
+              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white px-6 py-6 text-lg"
             >
               Conoce nuestro curso
             </Button>
@@ -81,16 +78,16 @@ const Hero = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
-              <h3 className="font-bold text-xl mb-2">Prueba de Inglés C1</h3>
-              <p>Nueva prueba específica en la Fase 1</p>
+              <h3 className="font-bold text-lg mb-1">Prueba de Inglés C1</h3>
+              <p className="text-sm opacity-90">Nueva prueba específica en la Fase 1</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
-              <h3 className="font-bold text-xl mb-2">Domina las Pruebas Clave</h3>
-              <p>Preparación intensiva FEAST + Nueva Simulación ATC</p>
+              <h3 className="font-bold text-lg mb-1">Domina las Pruebas Clave</h3>
+              <p className="text-sm opacity-90">FEAST + Nueva Simulación ATC</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
-              <h3 className="font-bold text-xl mb-2">Preparación Psicológica</h3>
-              <p>Gabinete experto en competencias ATC</p>
+              <h3 className="font-bold text-lg mb-1">Preparación Psicológica</h3>
+              <p className="text-sm opacity-90">Gabinete experto en competencias ATC</p>
             </div>
           </div>
         </motion.div>
