@@ -30,20 +30,22 @@ const Hero = () => {
           </span>
           
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
-            150 Plazas para Controladores Aéreos
+            <span className="block md:hidden">150 Plazas Controlador Aéreo</span>
+            <span className="hidden md:block">150 Plazas para Controladores Aéreos</span>
           </h1>
           
           <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto">
-            ¡El doble de oportunidades que el año pasado! Prepárate con los expertos para la nueva convocatoria que incluye prueba de inglés C1 y simulación ATC.
+            <span className="block md:hidden">¡Prepárate con los expertos! Incluye prueba de inglés C1 y simulación ATC.</span>
+            <span className="hidden md:block">¡El doble de oportunidades que el año pasado! Prepárate con los expertos para la nueva convocatoria que incluye prueba de inglés C1 y simulación ATC.</span>
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto max-w-lg">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full px-4">
             <Button
               onClick={scrollToContact}
               size="lg"
               className="w-full sm:w-auto bg-primary hover:bg-primary-light text-white px-8 py-6 text-lg"
             >
-              ¡Quiero preparar la convocatoria!
+              ¡Quiero prepararme con los mejores!
             </Button>
             <Button
               onClick={() => document.getElementById('curso')?.scrollIntoView({ behavior: 'smooth' })}
