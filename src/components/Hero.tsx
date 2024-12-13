@@ -1,18 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  
   const scrollToContact = () => {
     document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    // Precarga la imagen de fondo
+    const img = new Image();
+    img.src = '/lovable-uploads/b84d5575-b9a7-4007-b07f-aec3b751951e.webp';
+    img.onload = () => setIsImageLoaded(true);
+  }, []);
+
   return (
     <div className="relative min-h-screen flex items-center justify-center mt-24 md:mt-0">
+      {/* Placeholder mientras carga la imagen */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
+        className={`absolute inset-0 z-0 bg-gray-200 transition-opacity duration-500 ${
+          isImageLoaded ? 'opacity-0' : 'opacity-100'
+        }`}
+      />
+      
+      {/* Imagen de fondo optimizada */}
+      <div
+        className={`absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-500 ${
+          isImageLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
         style={{
           backgroundImage: "url('/lovable-uploads/b84d5575-b9a7-4007-b07f-aec3b751951e.webp')",
           willChange: 'transform',
+          transform: 'translateZ(0)', // Fuerza la aceleración por hardware
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
