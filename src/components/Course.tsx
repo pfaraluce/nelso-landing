@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle, Plane, Book, Users } from "lucide-react";
+import { Plane, Book } from "lucide-react";
 import { Button } from "./ui/button";
 
 const Course = () => {
@@ -8,8 +8,18 @@ const Course = () => {
   };
 
   return (
-    <section id="curso" className="section-padding bg-muted">
-      <div className="container mx-auto">
+    <section id="curso" className="section-padding bg-muted relative overflow-hidden">
+      {/* Add decorative circular background */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(128, 0, 32, 0.15) 0%, rgba(128, 0, 32, 0) 70%)',
+          filter: 'blur(40px)',
+          transform: 'translate(-50%, -50%)',
+        }}
+      />
+      
+      <div className="container mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
