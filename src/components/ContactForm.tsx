@@ -33,9 +33,9 @@ const ContactForm = () => {
 
   return (
     <section id="contacto" className="section-padding bg-muted">
-      <div className="container mx-auto max-w-2xl">
+      <div className="container mx-auto max-w-2xl px-2 sm:px-4">
         <h2 className="text-4xl font-bold text-center mb-12">Contacta con Nosotros</h2>
-        <div ref={formContainerRef} className="glass p-8 rounded-xl min-h-[500px]">
+        <div ref={formContainerRef} className="glass p-3 sm:p-8 rounded-xl min-h-[500px]">
           {isFormLoaded ? (
             <iframe
               src="https://tally.so/embed/3x9N1o?alignLeft=1&hideTitle=1&transparentBackground=1"
