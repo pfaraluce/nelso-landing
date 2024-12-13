@@ -55,14 +55,14 @@ const Testimonials = () => {
   }, [emblaApi]);
 
   return (
-    <section className="section-padding bg-white">
-      <div className="container mx-auto">
+    <section className="section-padding bg-white w-full">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <MessageCircle className="w-12 h-12 mx-auto text-primary mb-4" />
           <h2 className="text-4xl font-bold">Lo que dicen nuestros alumnos</h2>
         </div>
         
-        <div className="overflow-hidden" ref={emblaRef}>
+        <div className="overflow-hidden w-full" ref={emblaRef}>
           <div className="flex">
             {testimonials.map((testimonial, index) => (
               <motion.div
@@ -70,7 +70,7 @@ const Testimonials = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4"
+                className="flex-[0_0_100%] min-w-0 px-2 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] sm:px-4"
               >
                 <div className={`h-full ${testimonial.isDark ? 'glass-dark' : 'glass'} p-6 rounded-xl`}>
                   <Quote className={`w-8 h-8 ${testimonial.isDark ? 'text-white' : 'text-primary'} mb-4`} />
