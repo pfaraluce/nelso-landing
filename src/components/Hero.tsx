@@ -58,8 +58,8 @@ const Hero = () => {
               <p>Nueva prueba específica en la Fase 1</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
-              <h3 className="font-bold text-xl mb-2">Pruebas Fase 2</h3>
-              <p>Preparación FEAST y nueva Prueba Digital ATC</p>
+              <h3 className="font-bold text-xl mb-2">Domina las Pruebas Clave</h3>
+              <p>Preparación intensiva FEAST + Nueva Simulación ATC</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
               <h3 className="font-bold text-xl mb-2">Preparación Psicológica</h3>
