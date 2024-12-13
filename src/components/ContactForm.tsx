@@ -7,7 +7,7 @@ const ContactForm = () => {
           <iframe
             src="https://tally.so/embed/3x9N1o?alignLeft=1&hideTitle=1&transparentBackground=1"
             width="100%"
-            height="800"
+            height="500"
             frameBorder="0"
             marginHeight={0}
             marginWidth={0}
