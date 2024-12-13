@@ -54,16 +54,16 @@ const Hero = () => {
           
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
-              <h3 className="font-bold text-xl mb-2">150 Plazas</h3>
-              <p>Más oportunidades que nunca para cumplir tu sueño</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
               <h3 className="font-bold text-xl mb-2">Prueba de Inglés C1</h3>
               <p>Nueva prueba específica en la Fase 1</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
               <h3 className="font-bold text-xl mb-2">Simulación ATC</h3>
               <p>Nueva Prueba Digital en Entorno ATC</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg">
+              <h3 className="font-bold text-xl mb-2">Preparación Psicológica</h3>
+              <p>Gabinete experto en competencias ATC</p>
             </div>
           </div>
         </motion.div>
