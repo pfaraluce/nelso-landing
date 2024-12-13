@@ -9,15 +9,21 @@ const Course = () => {
 
   return (
     <section id="curso" className="section-padding bg-muted relative overflow-hidden">
-      {/* Add decorative circular background */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
-        style={{
-          background: 'radial-gradient(circle at center, rgba(128, 0, 32, 0.15) 0%, rgba(128, 0, 32, 0) 70%)',
-          filter: 'blur(40px)',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
+      {/* Radar background effect */}
+      <div className="absolute inset-0 opacity-20">
+        <div 
+          className="absolute inset-0 border-2 border-primary rounded-full"
+          style={{ animation: 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite' }}
+        />
+        <div 
+          className="absolute inset-[10%] border-2 border-primary rounded-full"
+          style={{ animation: 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite 1s' }}
+        />
+        <div 
+          className="absolute inset-[20%] border-2 border-primary rounded-full"
+          style={{ animation: 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite 2s' }}
+        />
+      </div>
       
       <div className="container mx-auto relative z-10">
         <motion.div
