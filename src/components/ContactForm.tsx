@@ -1,31 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { toast } from "./ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import { useState } from "react";
 import { Loader2 } from "lucide-react";
-
-const formSchema = z.object({
-  firstName: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  lastName: z.string().min(2, "Los apellidos deben tener al menos 2 caracteres"),
-  email: z.string().email("Email inválido"),
-  phone: z.string().min(9, "El teléfono debe tener al menos 9 dígitos"),
-  englishLevel: z.enum(["B1", "B2", "C1", "C2"], {
-    required_error: "Por favor, selecciona tu nivel de inglés",
-  }),
-  educationLevel: z.enum(["ESO", "Bachillerato", "Diplomatura", "Licenciatura"], {
-    required_error: "Por favor, selecciona tu nivel de estudios",
-  }),
-  comments: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { useState } from "react";
+import { formSchema, type FormValues } from "./contact/FormSchema";
+import { handleFormSubmit } from "./contact/FormSubmitHandler";
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,33 +27,7 @@ const ContactForm = () => {
   const onSubmit = async (values: FormValues) => {
     try {
       setIsSubmitting(true);
-      console.log("Submitting form:", values);
-
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('contact_forms')
-        .insert({
-          name: `${values.firstName} ${values.lastName}`,
-          email: values.email,
-          phone: values.phone,
-          message: `Nivel de inglés: ${values.englishLevel}\nNivel de estudios: ${values.educationLevel}\nComentarios: ${values.comments || 'No hay comentarios'}`,
-        });
-
-      if (dbError) throw dbError;
-
-      // Send confirmation email
-      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
-        body: values
-      });
-
-      if (emailError) throw emailError;
-
-      toast({
-        title: "¡Formulario enviado con éxito! 🎉",
-        description: "Nos pondremos en contacto contigo muy pronto.",
-        className: "bg-primary text-primary-foreground",
-      });
-      
+      await handleFormSubmit(values);
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);

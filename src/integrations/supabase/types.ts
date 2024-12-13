@@ -11,27 +11,36 @@ export type Database = {
     Tables: {
       contact_forms: {
         Row: {
+          comments: string | null
           created_at: string
+          education_level: string
           email: string
+          english_level: string
+          first_name: string
           id: string
-          message: string
-          name: string
+          last_name: string
           phone: string
         }
         Insert: {
+          comments?: string | null
           created_at?: string
+          education_level: string
           email: string
+          english_level: string
+          first_name: string
           id?: string
-          message: string
-          name: string
+          last_name: string
           phone: string
         }
         Update: {
+          comments?: string | null
           created_at?: string
+          education_level?: string
           email?: string
+          english_level?: string
+          first_name?: string
           id?: string
-          message?: string
-          name?: string
+          last_name?: string
           phone?: string
         }
         Relationships: []
