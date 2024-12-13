@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, X, TowerControl } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -7,17 +7,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
-  const location = useLocation();
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    
-    if (location.pathname !== '/') {
-      window.location.href = `/#${id}`;
-    } else {
-      const element = document.getElementById(id);
-      element?.scrollIntoView({ behavior: 'smooth' });
-    }
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -34,32 +28,26 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="hover:text-primary">
-              Inicio
-            </Link>
             <a
-              href="#about"
-              onClick={(e) => handleAnchorClick(e, 'about')}
+              href="#sobre-nosotros"
+              onClick={(e) => handleAnchorClick(e, 'sobre-nosotros')}
               className="hover:text-primary"
             >
               Sobre nosotros
             </a>
             <a
-              href="#features"
-              onClick={(e) => handleAnchorClick(e, 'features')}
+              href="#curso"
+              onClick={(e) => handleAnchorClick(e, 'curso')}
               className="hover:text-primary"
             >
-              Características
+              Curso
             </a>
-            <Link to="/blog" className="hover:text-primary">
-              Blog
-            </Link>
             <Button asChild>
               <a
-                href="#contact"
-                onClick={(e) => handleAnchorClick(e, 'contact')}
+                href="#contacto"
+                onClick={(e) => handleAnchorClick(e, 'contacto')}
               >
-                Contacto
+                Contactar
               </a>
             </Button>
           </div>
@@ -74,21 +62,13 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-b">
-            <Link
-              to="/"
-              className="block px-3 py-2 rounded-md hover:bg-muted"
-              onClick={() => setIsOpen(false)}
-            >
-              Inicio
-            </Link>
             <a
-              href="#about"
+              href="#sobre-nosotros"
               onClick={(e) => {
-                handleAnchorClick(e, 'about');
+                handleAnchorClick(e, 'sobre-nosotros');
                 setIsOpen(false);
               }}
               className="block px-3 py-2 rounded-md hover:bg-muted"
@@ -96,31 +76,24 @@ const Navbar = () => {
               Sobre nosotros
             </a>
             <a
-              href="#features"
+              href="#curso"
               onClick={(e) => {
-                handleAnchorClick(e, 'features');
+                handleAnchorClick(e, 'curso');
                 setIsOpen(false);
               }}
               className="block px-3 py-2 rounded-md hover:bg-muted"
             >
-              Características
+              Curso
             </a>
-            <Link
-              to="/blog"
-              className="block px-3 py-2 rounded-md hover:bg-muted"
-              onClick={() => setIsOpen(false)}
-            >
-              Blog
-            </Link>
             <a
-              href="#contact"
+              href="#contacto"
               onClick={(e) => {
-                handleAnchorClick(e, 'contact');
+                handleAnchorClick(e, 'contacto');
                 setIsOpen(false);
               }}
               className="block px-3 py-2 rounded-md hover:bg-muted"
             >
-              Contacto
+              Contactar
             </a>
           </div>
         </div>
