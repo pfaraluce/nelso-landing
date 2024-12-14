@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center mt-24 md:mt-0">
+    <div className="relative min-h-screen flex items-center justify-center md:mt-0 pt-20 md:pt-0">
       {/* Placeholder mientras carga la imagen */}
       <div
         className={`absolute inset-0 z-0 bg-gray-200 transition-opacity duration-500 ${
@@ -39,12 +39,12 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
-      <div className="relative z-10 container mx-auto text-center text-white">
+      <div className="relative z-10 container mx-auto text-center text-white px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto space-y-6 px-4"
+          className="max-w-4xl mx-auto space-y-6"
         >
           <span className="inline-block bg-primary px-3 py-1.5 rounded-full text-white text-sm font-medium">
             ¡Nueva Convocatoria ENAIRE 2024!
