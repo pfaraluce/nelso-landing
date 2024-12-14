@@ -57,8 +57,8 @@ const Navbar = () => {
             </a>
             <Button 
               asChild
-              variant={isScrolled ? "default" : "outline"}
-              className={!isScrolled ? "border-white text-white hover:bg-white/20" : ""}
+              variant="default"
+              className="text-white bg-primary hover:bg-primary-light"
             >
               <a
                 href="#contacto"
