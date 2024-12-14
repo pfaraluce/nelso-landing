@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, X, TowerControl } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,7 @@ const Navbar = () => {
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
-    setIsOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -57,7 +56,6 @@ const Navbar = () => {
             </a>
             <Button 
               asChild
-              variant="default"
               className="text-white bg-primary hover:bg-primary-light"
             >
               <a
@@ -79,33 +77,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-primary text-white">
-            <a
-              href="#sobre-nosotros"
-              onClick={(e) => handleAnchorClick(e, 'sobre-nosotros')}
-              className="block px-3 py-2 rounded-md hover:bg-primary-light transition-colors"
-            >
-              Sobre nosotros
-            </a>
-            <a
-              href="#curso"
-              onClick={(e) => handleAnchorClick(e, 'curso')}
-              className="block px-3 py-2 rounded-md hover:bg-primary-light transition-colors"
-            >
-              Curso
-            </a>
-            <a
-              href="#contacto"
-              onClick={(e) => handleAnchorClick(e, 'contacto')}
-              className="block px-3 py-2 rounded-md hover:bg-primary-light transition-colors"
-            >
-              Contactar
-            </a>
-          </div>
-        </div>
-      )}
+      <MobileMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </nav>
   );
 };
