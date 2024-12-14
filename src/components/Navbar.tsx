@@ -29,12 +29,14 @@ const Navbar = () => {
     if (!isMobile) setIsOpen(false);
   }, [isMobile]);
 
+  const textColorClass = isScrolled ? 'text-foreground' : 'text-white';
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2 text-xl font-bold hover:text-primary transition-colors">
-            <TowerControl className="h-6 w-6" />
+          <Link to="/" className={`flex items-center space-x-2 text-xl font-bold hover:text-primary transition-colors ${textColorClass}`}>
+            <TowerControl className={`h-6 w-6 ${textColorClass}`} />
             <span>Nelso Formación</span>
           </Link>
 
@@ -42,18 +44,22 @@ const Navbar = () => {
             <a
               href="#sobre-nosotros"
               onClick={(e) => handleAnchorClick(e, 'sobre-nosotros')}
-              className="hover:text-primary transition-colors"
+              className={`hover:text-primary transition-colors ${textColorClass}`}
             >
               Sobre nosotros
             </a>
             <a
               href="#curso"
               onClick={(e) => handleAnchorClick(e, 'curso')}
-              className="hover:text-primary transition-colors"
+              className={`hover:text-primary transition-colors ${textColorClass}`}
             >
               Curso
             </a>
-            <Button asChild>
+            <Button 
+              asChild
+              variant={isScrolled ? "default" : "outline"}
+              className={!isScrolled ? "border-white text-white hover:bg-white/20" : ""}
+            >
               <a
                 href="#contacto"
                 onClick={(e) => handleAnchorClick(e, 'contacto')}
@@ -64,7 +70,7 @@ const Navbar = () => {
           </div>
 
           <button
-            className="md:hidden"
+            className={`md:hidden ${textColorClass}`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
