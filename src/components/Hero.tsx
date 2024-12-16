@@ -49,7 +49,7 @@ const Hero = () => {
           <img 
             src="/logo-white.svg" 
             alt="Nelso Formación Logo" 
-            className="w-48 md:w-64 mx-auto mb-8"
+            className="w-48 md:w-64 mx-auto mb-12 md:mb-8 mt-16 md:mt-0"
           />
           
           <span className="inline-block bg-primary px-3 py-1.5 rounded-full text-white text-sm font-medium">
