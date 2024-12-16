@@ -53,7 +53,7 @@ const ContactForm = () => {
         <div ref={formContainerRef} className="glass p-3 sm:p-8 rounded-xl min-h-[500px]">
           {isFormLoaded ? (
             <iframe
-              src="https://tally.so/embed/3x9N1o?alignLeft=1&hideTitle=1&transparentBackground=1"
+              src="https://tally.so/embed/3x9N1o?alignLeft=1&hideTitle=1&transparentBackground=1&redirectUrl=https://nelsoformacion.com/success"
               width="100%"
               height="500"
               frameBorder="0"
