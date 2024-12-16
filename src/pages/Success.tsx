@@ -16,6 +16,17 @@ const Success = () => {
     return () => clearTimeout(timeout);
   }, [navigate]);
 
+  // Añadir el evento de conversión cuando se carga la página
+  useEffect(() => {
+    // @ts-ignore
+    window.gtag('event', 'conversion', {
+      'send_to': 'AW-971027451/aysvCMWwqvgZEPvngs8D',
+      'value': 15.0,
+      'currency': 'EUR'
+    });
+    console.log('Conversion event sent to Google Ads');
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted px-4">
       <motion.div
