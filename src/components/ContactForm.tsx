@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ContactForm = () => {
   const [isFormLoaded, setIsFormLoaded] = useState(false);
   const formContainerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const options = {
@@ -30,6 +32,19 @@ const ContactForm = () => {
       }
     };
   }, [isFormLoaded]);
+
+  // Función para manejar el mensaje de éxito de Tally
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data.type === 'form:submit' && event.origin === 'https://tally.so') {
+        console.log('Formulario enviado con éxito');
+        navigate('/success');
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [navigate]);
 
   return (
     <section id="contacto" className="section-padding bg-muted">
