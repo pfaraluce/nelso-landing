@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center md:mt-0 pt-20 md:pt-0">
+    <div className="relative min-h-screen flex items-center justify-center md:mt-0">
       {/* Placeholder mientras carga la imagen */}
       <div
         className={`absolute inset-0 z-0 bg-gray-200 transition-opacity duration-500 ${
@@ -46,6 +46,12 @@ const Hero = () => {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto space-y-6"
         >
+          <img 
+            src="/logo-white.svg" 
+            alt="Nelso Formación Logo" 
+            className="w-48 md:w-64 mx-auto mb-8"
+          />
+          
           <span className="inline-block bg-primary px-3 py-1.5 rounded-full text-white text-sm font-medium">
             ¡Nueva Convocatoria ENAIRE 2024!
           </span>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, TowerControl, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import MobileMenu from "./MobileMenu";
@@ -44,12 +44,9 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
-              <img 
-                src={isScrolled ? "/logo.svg" : "/logo-white.svg"} 
-                alt="Nelso Formación" 
-                className="h-8 w-auto"
-              />
+            <a href="/" className={`flex items-center space-x-2 text-xl font-bold hover:text-primary transition-colors ${textColorClass}`}>
+              <TowerControl className={`h-6 w-6 ${textColorClass}`} />
+              <span>Nelso Formación</span>
             </a>
             
             {/* Phone numbers */}
