@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, TowerControl } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import MobileMenu from "./MobileMenu";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +24,15 @@ const Navbar = () => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handlePhoneClick = (phoneNumber: string) => {
+    // Copy to clipboard
+    navigator.clipboard.writeText(phoneNumber).then(() => {
+      toast.success("Número copiado al portapapeles");
+    });
+    // Open phone app
+    window.location.href = `tel:${phoneNumber.replace(/\s/g, '')}`;
+  };
+
   useEffect(() => {
     if (!isMobile) setIsOpen(false);
   }, [isMobile]);
@@ -34,10 +43,33 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className={`flex items-center space-x-2 text-xl font-bold hover:text-primary transition-colors ${textColorClass}`}>
-            <TowerControl className={`h-6 w-6 ${textColorClass}`} />
-            <span>Nelso Formación</span>
-          </Link>
+          <div className="flex items-center">
+            <a href="/" className="flex items-center space-x-2">
+              <img 
+                src={isScrolled ? "/logo.svg" : "/logo-white.svg"} 
+                alt="Nelso Formación" 
+                className="h-8 w-auto"
+              />
+            </a>
+            
+            {/* Phone numbers */}
+            <div className="hidden md:flex ml-6 space-x-4">
+              <button
+                onClick={() => handlePhoneClick("610 771 234")}
+                className={`flex items-center space-x-1 hover:text-primary transition-colors ${textColorClass}`}
+              >
+                <Phone className="h-4 w-4" />
+                <span>610 771 234</span>
+              </button>
+              <button
+                onClick={() => handlePhoneClick("648 000 132")}
+                className={`flex items-center space-x-1 hover:text-primary transition-colors ${textColorClass}`}
+              >
+                <Phone className="h-4 w-4" />
+                <span>648 000 132</span>
+              </button>
+            </div>
+          </div>
 
           <div className="hidden md:flex items-center space-x-4">
             <a
@@ -77,7 +109,14 @@ const Navbar = () => {
         </div>
       </div>
 
-      <MobileMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <MobileMenu 
+        isOpen={isOpen} 
+        onClose={() => setIsOpen(false)} 
+        phoneNumbers={[
+          { number: "610 771 234", onClick: () => handlePhoneClick("610 771 234") },
+          { number: "648 000 132", onClick: () => handlePhoneClick("648 000 132") }
+        ]}
+      />
     </nav>
   );
 };
